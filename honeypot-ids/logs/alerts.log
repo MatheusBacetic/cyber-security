@@ -1,0 +1,11 @@
+[2026-06-13 15:12:49] [IDS ALERT] IP: 127.0.0.1 | Tentativas: 5 | Tipo: brute_force
+[2026-06-13 15:12:49] [IDS ALERT] IP: 127.0.0.1 | Tentativas: 6 | Tipo: brute_force
+[2026-06-13 15:12:49] [IDS ALERT] IP: 127.0.0.1 | Tentativas: 7 | Tipo: brute_force
+[2026-06-13 15:12:49] [IDS ALERT] IP: 127.0.0.1 | Tentativas: 8 | Tipo: brute_force
+[2026-06-13 15:12:50] [IDS ALERT] IP: 127.0.0.1 | Tentativas: 9 | Tipo: brute_force
+[2026-06-13 15:12:50] [IDS ALERT] IP: 127.0.0.1 | Tentativas: 10 | Tipo: brute_force
+[2026-06-13 15:12:50] [IDS ALERT] IP: 127.0.0.1 | Tentativas: 11 | Tipo: brute_force
+[2026-06-13 15:12:50] [IDS ALERT] IP: 127.0.0.1 | Tentativas: 12 | Tipo: brute_force
+[2026-06-13 15:12:51] [IDS ALERT] IP: 127.0.0.1 | Tentativas: 13 | Tipo: brute_force
+[2026-06-14 16:48:18] [IDS ALERT] IP: 192.168.15.25 | Tentativas: 5 | Tipo: brute_force
+[2026-06-14 16:55:54] [IDS ALERT] IP: 192.168.15.25 | Tentativas: 5 | Tipo: brute_force
