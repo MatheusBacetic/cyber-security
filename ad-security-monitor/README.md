@@ -216,11 +216,3 @@ Com `DRY_RUN = True`, nenhuma conta é desabilitada. Antes de desativar o modo d
 - permissões da conta que executa o monitor.
 
 O caminho de quarentena deve existir no domínio configurado. Não habilite ações automáticas em produção sem teste e processo de recuperação.
-
-## Limitações
-
-- o monitor local enxerga diretamente apenas o Security Log da máquina em que está executando;
-- eventos de endpoints exigem execução local, Windows Event Forwarding ou SIEM centralizado;
-- eventos de auditoria dependem de GPO, subcategoria e SACL corretamente configuradas;
-- correlação comportamental indica risco, não prova qual ferramenta foi utilizada;
-- thresholds devem ser ajustados à linha de base do ambiente.
