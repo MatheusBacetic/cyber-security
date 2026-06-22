@@ -190,7 +190,14 @@ Alertas e incidentes são gravados em:
 logs\alerts.log
 ```
 
-O diretório é criado automaticamente.
+O diretório é criado automaticamente. O arquivo é rotacionado ao atingir
+10 MB e os cinco backups mais recentes são preservados (`alerts.log.1` até
+`alerts.log.5`).
+
+Eventos 4625 e 4769 isolados são tratados como telemetria e continuam sendo
+analisados pelo motor de detecção, mas não são gravados individualmente. Eles
+geram registro quando atingem os limites de comportamento suspeito ou compõem
+um incidente correlacionado.
 
 ## Auto Response e quarentena
 

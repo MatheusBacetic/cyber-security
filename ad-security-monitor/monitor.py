@@ -2,10 +2,12 @@ import os
 import re
 import subprocess
 import queue
+import logging
 import xml.etree.ElementTree as ET
 from collections import defaultdict
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
+from logging.handlers import RotatingFileHandler
 
 import win32evtlog
 from colorama import Fore, Style, init
@@ -15,6 +17,8 @@ init()
 SERVER = "localhost"
 LOG_TYPE = "Security"
 LOG_FILE = "logs/alerts.log"
+LOG_MAX_BYTES = 10 * 1024 * 1024
+LOG_BACKUP_COUNT = 5
 
 WINDOW_SECONDS = 60
 FAILED_LOGON_THRESHOLD = 5
@@ -65,7 +69,7 @@ SERVICE_ACCOUNTS = {
     "svc_monitor",
 }
 
-# Enderecos que representam o proprio controlador de dominio. Outros enderecos
+# Endereços que representam o próprio controlador de domínio. Outros endereços
 # podem ser informados separados por virgula em AD_MONITOR_DC_ADDRESSES.
 DC_CLIENT_ADDRESSES = {
     "-",
@@ -120,18 +124,41 @@ MONITORED_EVENTS = {
     4740: {"name": "Conta bloqueada", "severity": "CRITICAL", "color": Fore.RED},
     4768: {"name": "Kerberos TGT Request", "severity": "LOW", "color": Fore.GREEN},
     4769: {"name": "Kerberos Service Ticket Request", "severity": "MEDIUM", "color": Fore.CYAN},
-    4798: {"name": "Enumeracao de grupos locais", "severity": "HIGH", "color": Fore.YELLOW},
-    4799: {"name": "Enumeracao de grupo local", "severity": "HIGH", "color": Fore.YELLOW},
+    4798: {"name": "Enumeração de grupos locais", "severity": "HIGH", "color": Fore.YELLOW},
+    4799: {"name": "Enumeração de grupo local", "severity": "HIGH", "color": Fore.YELLOW},
     5140: {"name": "Acesso a compartilhamento de rede", "severity": "MEDIUM", "color": Fore.CYAN},
     5145: {"name": "Verificacao detalhada de compartilhamento", "severity": "HIGH", "color": Fore.YELLOW},
 }
 
 
-def save_alert(message):
-    os.makedirs("logs", exist_ok=True)
+def create_alert_logger():
+    """Cria um log limitado a 10 MB e preserva os cinco backups mais recentes."""
+    log_directory = os.path.dirname(LOG_FILE)
+    if log_directory:
+        os.makedirs(log_directory, exist_ok=True)
 
-    with open(LOG_FILE, "a", encoding="utf-8") as file:
-        file.write(message + "\n")
+    logger = logging.getLogger("ad_security_monitor.alerts")
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+
+    if not logger.handlers:
+        handler = RotatingFileHandler(
+            LOG_FILE,
+            maxBytes=LOG_MAX_BYTES,
+            backupCount=LOG_BACKUP_COUNT,
+            encoding="utf-8",
+        )
+        handler.setFormatter(logging.Formatter("%(message)s"))
+        logger.addHandler(handler)
+
+    return logger
+
+
+alert_logger = create_alert_logger()
+
+
+def save_alert(message):
+    alert_logger.info(message.rstrip("\n"))
 
 
 def get_value(strings, index):
@@ -283,7 +310,7 @@ def detect_lockout_wave():
 
     if len(lockouts) >= LOCKOUT_THRESHOLD:
         raise_behavior_alert(
-            "Possivel password spraying",
+            "Possível password spraying",
             f"Bloqueios recentes: {len(lockouts)}\nJanela: 120s",
         )
 
@@ -298,7 +325,7 @@ def detect_mass_user_modification(actor):
 
     if len(user_modifications[actor]) >= MASS_MODIFICATION_THRESHOLD:
         raise_behavior_alert(
-            "Possivel alteracao em massa de usuarios",
+            "Possível alteração em massa de usuários",
             (
                 f"Operador: {actor}\n"
                 f"Alteracoes: {len(user_modifications[actor])}\n"
@@ -635,7 +662,7 @@ def raise_suspicious_activity_alert(account, source_ip, events, signals):
         "\n############################################################\n"
         "#              ATIVIDADE SUSPEITA DETECTADA               #\n"
         "############################################################\n"
-        "[CRITICAL] Possivel enumeracao ou reconhecimento do Active Directory\n"
+        "[CRITICAL] Possível enumeração ou reconhecimento do Active Directory\n"
         f"Conta: {account}\n"
         f"IP origem: {source_ip}\n"
         f"Sinais correlacionados: {', '.join(sorted(signals))}\n"
@@ -700,7 +727,7 @@ def detect_suspicious_activity_events(event):
     if event.EventID == 4768:
         account = data.get("TargetUserName", get_value(strings, 0))
         source_ip = data.get("IpAddress", get_value(strings, 9))
-        record_suspicious_activity_signal(account, source_ip, "KERBEROS_TGT", event, "4768: solicitacao de TGT")
+        record_suspicious_activity_signal(account, source_ip, "KERBEROS_TGT", event, "4768: solicitação de TGT")
         return
 
     if event.EventID == 4769:
@@ -724,7 +751,7 @@ def detect_suspicious_activity_events(event):
         target = data.get("TargetUserName", "-")
         record_suspicious_activity_signal(
             account, source_ip, "GROUP_ENUM", event,
-            f"{event.EventID}: enumeracao relacionada a {target}",
+            f"{event.EventID}: enumeração relacionada a {target}",
         )
 
 
@@ -817,7 +844,7 @@ def detect_suspicious_service_account_activity(account, tickets, services):
                 f"Conta: {account}\n"
                 f"Tickets: {ticket_count}\n"
                 f"Janela: {KERBEROAST_WINDOW}s\n\n"
-                "Servicos:\n"
+                "Serviços:\n"
                 + "\n".join(services)
             ),
         )
@@ -871,12 +898,12 @@ def detect_kerberoasting(event):
     # permitir o alerta, sem inundar o log a cada TGS subsequente.
     if ticket_count == KERBEROAST_THRESHOLD:
         raise_behavior_alert(
-            "Possivel Kerberoasting",
+            "Possível Kerberoasting",
             (
                 f"Conta: {account}\n"
                 f"Tickets solicitados: {ticket_count}\n"
                 f"Janela: {KERBEROAST_WINDOW}s\n\n"
-                "Servicos:\n"
+                "Serviços:\n"
                 + "\n".join(services)
             ),
         )
@@ -1065,8 +1092,8 @@ def render_event(event_handle):
 def close_evt_handle(handle):
     """Fecha PyEVT_HANDLE sem depender de win32evtlog.EvtClose.
 
-    Algumas versoes do pywin32 nao exportam EvtClose; nelas o fechamento e
-    fornecido pelo proprio objeto de handle (ou ocorre ao liberar o objeto).
+    Algumas versões do pywin32 não exportam EvtClose; nelas, o fechamento é
+    fornecido pelo próprio objeto de handle (ou ocorre ao liberar o objeto).
     """
     if handle is None:
         return
@@ -1077,7 +1104,7 @@ def close_evt_handle(handle):
 
 
 def enqueue_backfill(event_queue):
-    """Carrega um historico curto; a assinatura ja esta ativa, portanto nao ha gap."""
+    """Carrega um histórico curto; a assinatura já está ativa, portanto não há gap."""
     flags = win32evtlog.EvtQueryChannelPath | win32evtlog.EvtQueryReverseDirection
     result_set = win32evtlog.EvtQuery(LOG_TYPE, flags, SUBSCRIPTION_QUERY)
     loaded = []
@@ -1102,7 +1129,7 @@ def enqueue_backfill(event_queue):
 
 
 def get_latest_security_record_id():
-    """Captura o watermark atual sem processar eventos historicos."""
+    """Captura o watermark atual sem processar eventos históricos."""
     flags = win32evtlog.EvtQueryChannelPath | win32evtlog.EvtQueryReverseDirection
     result_set = win32evtlog.EvtQuery(LOG_TYPE, flags, "*")
     try:
@@ -1146,8 +1173,9 @@ def poll_security_events(after_record_id):
 
 def main():
     print("[+] AD Security Monitor iniciado (Windows Event Log API moderna)")
-    print("[+] Alertas visiveis: 4625, 4720, 4728, 4738, 4740, 4769")
-    print("[+] Telemetria de atividade suspeita: 4624, 4662, 4768, 4798, 4799, 5140, 5145")
+    print("[+] Alertas visíveis: 4720, 4728, 4738, 4740")
+    print("[+] Telemetria correlacionada: 4624, 4625, 4662, 4768, 4769, 4798, 4799, 5140, 5145")
+    print("[+] Rotação de logs: 10 MB, mantendo 5 backups")
     print("[+] Modo ao vivo ativo: callback + polling incremental", flush=True)
 
     event_queue = queue.Queue()
@@ -1174,7 +1202,7 @@ def main():
         print(f"[WARNING] Callback indisponivel; usando polling: {exc}", flush=True)
 
     # A assinatura e criada antes do backfill. Eventos gerados durante a consulta
-    # entram na fila e sao deduplicados pelo EventRecordID.
+    # entram na fila e são deduplicados pelo EventRecordID.
     if BACKFILL_EVENTS > 0:
         enqueue_backfill(event_queue)
     last_record_id = get_latest_security_record_id()
@@ -1211,12 +1239,22 @@ def main():
 
             if event.EventID == 4624:
                 track_network_logon(event)
+            elif event.EventID == 4625:
+                # Falhas isoladas são telemetria. Somente rajadas e o Risk
+                # Score geram registros, reduzindo o volume do alerts.log.
+                detect_failed_logon_burst(event)
+                update_risk_score(event)
             elif event.EventID == 4662:
                 detect_correlated_directory_enumeration(event)
                 update_risk_score(event)
+            elif event.EventID == 4769:
+                # TGS comuns são esperados em um domínio. O log recebe apenas
+                # alertas de Kerberoasting ou correlacoes suspeitas.
+                detect_kerberoasting(event)
+                detect_suspicious_activity_events(event)
             elif event.EventID in {4768, 4798, 4799, 5140, 5145}:
                 detect_suspicious_activity_events(event)
-            elif event.EventID in MONITORED_EVENTS:
+            elif event.EventID in {4720, 4728, 4738, 4740}:
                 print_alert(event)
     except KeyboardInterrupt:
         print("\n[+] Monitor encerrado")
