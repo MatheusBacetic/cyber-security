@@ -1,0 +1,361 @@
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-21 07:33:55
+Alvo: TREINO\teste.auditoria
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: CRITICAL
+Evento: Conta bloqueada
+Event ID: 4740
+Horário: 2026-06-21 08:18:04
+Conta bloqueada: patricia.rh
+Origem: DESKTOP-HQV97I7
+=======================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: HIGH
+Evento: Falha de logon
+Event ID: 4625
+Horário: 2026-06-21 08:19:11
+Conta: matheus.ti
+Workstation: DESKTOP-HQV97I7
+IP origem: 10.0.0.20
+=======================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-22 03:43:35
+Alvo: TREINO\teste.auditoria
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-22 03:43:46
+Alvo: TREINO\patricia.rh
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-22 03:43:58
+Alvo: TREINO\admin.ti
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-22 03:45:57
+Alvo: TREINO\teste.auditoria
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-22 03:47:11
+Alvo: TREINO\matheus.ti
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-22 04:03:16
+Alvo: TREINO\matheus.ti
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-22 04:03:16
+Alvo: TREINO\teste.auditoria
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-22 04:03:16
+Alvo: TREINO\patricia.rh
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== POSSÍVEL ATAQUE ==========
+[CRITICAL] Possível alteração em massa de usuários
+Operador: Administrator
+Alterações: 3
+Janela: 60s
+=====================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-22 04:03:16
+Alvo: TREINO\matheus.ti
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-22 04:03:16
+Alvo: TREINO\teste.auditoria
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-22 04:03:16
+Alvo: TREINO\patricia.rh
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== POSSÍVEL ATAQUE ==========
+[CRITICAL] Possível alteração em massa de usuários
+Operador: Administrator
+Alterações: 3
+Janela: 60s
+=====================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-22 04:03:16
+Alvo: TREINO\matheus.ti
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== POSSÍVEL ATAQUE ==========
+[CRITICAL] Possível escalada de privilégio
+Grupo privilegiado: GG_RH_Admins
+Executado por: Administrator
+=====================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: CRITICAL
+Evento: Usuário adicionado a grupo
+Event ID: 4728
+Horário: 2026-06-22 04:12:40
+Usuário adicionado: CN=teste,OU=Usuarios,OU=Corporativo,DC=treino,DC=local
+Grupo: GG_RH_Admins
+Executado por: Administrator
+=======================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-22 04:03:16
+Alvo: TREINO\teste.auditoria
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-22 04:03:16
+Alvo: TREINO\patricia.rh
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== POSSÍVEL ATAQUE ==========
+[CRITICAL] Possível alteração em massa de usuários
+Operador: Administrator
+Alterações: 3
+Janela: 60s
+=====================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-22 04:03:16
+Alvo: TREINO\matheus.ti
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== POSSÍVEL ATAQUE ==========
+[CRITICAL] Possível escalada de privilégio
+Grupo privilegiado: GG_RH_Admins
+Executado por: Administrator
+=====================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: CRITICAL
+Evento: Usuário adicionado a grupo
+Event ID: 4728
+Horário: 2026-06-22 04:12:40
+Usuário adicionado: CN=teste,OU=Usuarios,OU=Corporativo,DC=treino,DC=local
+Grupo: GG_RH_Admins
+Executado por: Administrator
+=======================================
+
+
+========== POSSÍVEL ATAQUE ==========
+[CRITICAL] Possível alteração em massa de usuários
+Operador: Administrator
+Alterações: 4
+Janela: 60s
+=====================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-22 04:21:31
+Alvo: TREINO\teste.auditoria
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-22 04:22:54
+Alvo: TREINO\teste.auditoria
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-22 04:22:54
+Alvo: TREINO\teste.auditoria
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== POSSÍVEL ATAQUE ==========
+[CRITICAL] Possível alteração em massa de usuários
+Operador: Administrator
+Alterações: 3
+Janela: 60s
+=====================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-22 04:22:54
+Alvo: TREINO\teste.auditoria
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== POSSÍVEL ATAQUE ==========
+[CRITICAL] Possível alteração em massa de usuários
+Operador: Administrator
+Alterações: 4
+Janela: 60s
+=====================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-22 04:22:54
+Alvo: TREINO\teste.auditoria
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== POSSÍVEL ATAQUE ==========
+[CRITICAL] Possível alteração em massa de usuários
+Operador: Administrator
+Alterações: 5
+Janela: 60s
+=====================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: MEDIUM
+Evento: Usuário alterado
+Event ID: 4738
+Horário: 2026-06-22 04:22:54
+Alvo: TREINO\teste.auditoria
+Alterado por: TREINO\Administrator
+=======================================
+
+
+========== POSSÍVEL ATAQUE ==========
+[CRITICAL] Possível escalada de privilégio
+Grupo privilegiado: GG_RH_Admins
+Executado por: Administrator
+=====================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: CRITICAL
+Evento: Usuário adicionado a grupo
+Event ID: 4728
+Horário: 2026-06-22 04:23:53
+Usuário adicionado: CN=teste,OU=Usuarios,OU=Corporativo,DC=treino,DC=local
+Grupo: GG_RH_Admins
+Executado por: Administrator
+=======================================
+
+
+========== AD SECURITY ALERT ==========
+Severidade: CRITICAL
+Evento: Conta bloqueada
+Event ID: 4740
+Horário: 2026-06-22 04:26:31
+Conta bloqueada: matheus.ti
+Origem: DESKTOP-HQV97I7
+=======================================
+
