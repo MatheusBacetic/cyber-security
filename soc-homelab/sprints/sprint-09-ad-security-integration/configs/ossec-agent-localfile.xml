@@ -1,0 +1,5 @@
+<!-- Sprint 10 - AD Security Monitor JSONL integration -->
+<localfile>
+  <log_format>json</log_format>
+  <location>C:\AD-Monitor\logs\wazuh-ad-monitor.jsonl</location>
+</localfile>

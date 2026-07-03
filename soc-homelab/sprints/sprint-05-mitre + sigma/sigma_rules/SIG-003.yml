@@ -1,0 +1,28 @@
+title: Suspicious Scheduled Task Creation Via Schtasks
+id: 6c8e2a1f-7d5b-4f9c-9e31-2b6f4a8d3c33
+status: experimental
+description: Detects scheduled task creation using schtasks.exe, which may indicate persistence or execution.
+author: Matheus Bacetic
+date: 2026-07-02
+references:
+  - https://attack.mitre.org/techniques/T1053/005/
+tags:
+  - attack.execution
+  - attack.persistence
+  - attack.t1053.005
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_image:
+    - Image|endswith: '\schtasks.exe'
+    - OriginalFileName: 'schtasks.exe'
+  selection_create:
+    CommandLine|contains:
+      - ' /create '
+      - ' -create '
+  condition: selection_image and selection_create
+falsepositives:
+  - Approved enterprise task scheduling
+  - Administrative automations
+level: medium 

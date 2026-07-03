@@ -1,0 +1,11 @@
+<!-- Sprint 10 - Custom AD Security Monitor integration -->
+<rule id="100240" level="10">
+  <if_sid>86600</if_sid>
+  <field name="integration">^ad-security-monitor$</field>
+  <field name="event_id">^4720$</field>
+  <description>AD Security Monitor: domain user account created</description>
+  <group>ad_monitor,account_creation,windows,</group>
+  <mitre>
+    <id>T1136.002</id>
+  </mitre>
+</rule>

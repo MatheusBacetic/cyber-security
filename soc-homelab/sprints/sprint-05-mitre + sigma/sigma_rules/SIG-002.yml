@@ -1,0 +1,27 @@
+title: Certutil Download Activity
+id: 8a7b1f3d-9e44-4b2a-a7f6-1c3d5e8f2a22
+status: experimental
+description: Detects certutil.exe used with URL cache options to download a remote file.
+author: Matheus Bacetic
+date: 2026-07-02
+references:
+  - https://attack.mitre.org/techniques/T1105/
+tags:
+  - attack.command_and_control
+  - attack.t1105
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_image:
+    - Image|endswith: '\certutil.exe'
+    - OriginalFileName: 'CertUtil.exe'
+  selection_download:
+    CommandLine|contains|all:
+      - '-urlcache'
+      - '-split'
+  condition: selection_image and selection_download
+falsepositives:
+  - Approved certificate-management workflows
+  - Enterprise deployment or update automation using certutil
+level: high

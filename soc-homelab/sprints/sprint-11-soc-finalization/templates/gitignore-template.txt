@@ -1,0 +1,39 @@
+# Binaries and compiled artifacts
+*.exe
+*.dll
+*.so
+*.o
+*.out
+*.bin
+*.elf
+
+# Logs and generated telemetry
+*.log
+*.jsonl
+*.offset
+*.state
+
+# Backups and temporary files
+*.bak
+*.backup
+*.tmp
+*.temp
+*.swp
+*.swo
+~$*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.vscode/
+.idea/
+
+# Keep Markdown, evidence, and important configuration files tracked.
